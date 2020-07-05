@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const app = express();
 const sellerRoutes = require('./routes/sellerRoute');
-const autoRoutes = require('./routes/autoRoute');
+const carRoutes = require('./routes/carRoute');
 
 mongoose.connect(process.env.DATABASE, {
 	useNewUrlParser: true,
@@ -31,7 +31,7 @@ app.use(expressValidator());
 
 //routes middleware
 app.use('/api', sellerRoutes);
-app.use('/api', autoRoutes);
+app.use('/api', carRoutes);
 
 const port = process.env.PORT || 8000;
 

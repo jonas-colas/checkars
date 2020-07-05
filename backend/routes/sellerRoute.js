@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const {read, create, readOne, update} = require('../controllers/sellerControllers');
+const {register, login, logout, requireLogin} = require('../controllers/sellerControllers');
+const {userSignupValidator} = require('../validator/');
 
-//router.get('/sellers', read);
-router.post('/sellers/create', create);
-//router.get('/sellers/:sellerId', readOne);
-//router.put('/sellers/update/:productId', update);
-
-//router.param('sellerId', sellerById);
+router.post('/register', register); //userSignupValidator, 
+router.post('/login', login);
+router.post('/logout', logout);
 
 module.exports = router;
