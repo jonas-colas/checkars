@@ -6,7 +6,7 @@ const {read, create, readOne, update, remove} = require('../controllers/autoCont
 router.get('/autos', read);
 router.post('/autos/create', create);
 router.get('/autos/:autoId', readOne);
-router.put('/autos/update/:autoId', update);
+router.put('/autos/:autoId', update);
 //router.delete('/autos/remove/:autoId', remove);
 
 //router.param('autoId', autoById);
