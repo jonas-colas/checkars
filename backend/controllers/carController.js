@@ -14,29 +14,32 @@ exports.list = (req, res, next) => {
 
 
 exports.create = (req, res, next) => {
-	//const {seller_id, nombre, precio, kilometros} = req.body;
+	//const {seller_id, nombre, precio, kilometros, status} = req.body;
 	const car = new  Car({
 		seller_id: req.body.seller_id,
 		nombre: req.body.nombre,
 		precio: req.body.precio,
-		kilometros: req.body.kilometros
+		kilometros: req.body.kilometros,
+		status: req.body.status
 	});
 	car.save().then(car => {
 		res.status(201).json({
 			message: 'Car created successfully!',
 			createdCar: {
 				car_id: car._id,
+				seller_id: car.seller_id,
 				precio: car.precio,
-				kilometros: car.kilometros
+				kilometros: car.kilometros,
+				status: car.status
 			}
 		})
-	})
+	});
 };
 
 
 exports.readOne = (req, res, next) => {
 	const id = req.params.carId;
-	Car.findById(id).select('_id precio kilometros').exec().then(car => {
+	Car.findById(id).select('_id precio kilometros seller_id status').exec().then(car => {
 		if(car){
 			res.status(200).json({
 				car: car
@@ -53,22 +56,19 @@ exports.readOne = (req, res, next) => {
 	});
 };
 
-
 exports.update = (req, res, next) => {
-	const id = req.params.carId;
-	
+	const carId = req.params.carId;
+
 	const updateOps = {};
 	for(const ops of req.body){
 		updateOps[ops.propName] = ops.value;
 	}
-	Car.updateOne({_id: id}, {$set: updateOps}).exec().then(result => {
-		//console.log(result);
+	Car.updateOne({_id: carId}, {$set: updateOps}).exec().then(result => {
 		res.status(200).json({
 			message: 'Car updated successfully!',
 		});
 	}).catch(err => {
 		res.status(400).json({
-			//error: err
 			error: 'Car does not exist'
 		});
 	});

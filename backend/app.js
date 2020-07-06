@@ -9,6 +9,7 @@ const expressValidator = require('express-validator');
 require('dotenv').config();
 
 const app = express();
+const authRoutes = require('./routes/authRoute');
 const sellerRoutes = require('./routes/sellerRoute');
 const carRoutes = require('./routes/carRoute');
 
@@ -30,6 +31,7 @@ app.use(cors());
 app.use(expressValidator());
 
 //routes middleware
+app.use('/api', authRoutes);
 app.use('/api', sellerRoutes);
 app.use('/api', carRoutes);
 

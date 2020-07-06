@@ -1,4 +1,4 @@
-exports.sellerSignupValidator = (req, res, next) => {
+exports.registerValidator = (req, res, next) => {
 	req.check('name', 'Name is required').notEmpty();
 	req.check('email', 'Email must contain @').matches(/.+\@.+\..+/);
 	req.check('password', 'Password is required').notEmpty();
